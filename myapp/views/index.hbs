@@ -8,27 +8,33 @@
     </h2>
     </div>
 
-    <div class="step2">
-    <h2>Step 2: Size </h2>
+      <div class="step2">
+    <h2>Step 2: Words </h2>
+<!--        <p>Enter Your Words</p>-->
+        <textarea type="text" name="parse_words" id="parse_words" class="input_words" spellcheck="true" onmousemove="Suggest_Size(this.value)"></textarea>
+    </div>
+
+    <div class="step3">
+    <h2>Step 3: Size </h2>
 <!--            <p>Enter the size of your word search puzzle:</p>-->
         <h3>Row Number
             <input type="number" name="Row" id="Row" max="99" min="0" class="number_Box"> <br>
         Col Number:
             <input type="number" name="Col" id="Col" max="99" min="0" class="number_Box"></h3>
+
+        <div>
+            <div id="Suggested_size" style="color: tomato"></div>
+        </div>
+
     </div>
 
-    <div class="step3">
-    <h2>Step 3: Words </h2>
-<!--        <p>Enter Your Words</p>-->
-        <textarea name="parse_words" id="parse_words" class="input_words" spellcheck="true"></textarea>
-    </div>
+
 
     <div class="step4">
     <h2>Step 4: Generate Options  </h2>
 <!--        <p>Word Search Puzzle Options</p>-->
          <h3>
         <label class="container">
-
         <input type="checkbox" name="parse_Option" value="1" onclick="return parseType_checkBox(this.value)" > Use each letter only once.
             <div class="checkmark"></div>
         </label>
@@ -48,33 +54,33 @@
         </div>
     </div>
 
+<!--    <div class="step5">-->
+<!--    <h2>Step 5: Display Options</h2>-->
+<!--&lt;!&ndash;        <p>Words Search Output Puzzle Output Type</p>&ndash;&gt;-->
+<!--        <h3>-->
+<!--        <label class="container">-->
+<!--            <input type="checkbox" name="output_Type" value="1" onclick="return outputType_checkedBox()"> HTML-->
+<!--            <div class="checkmark"></div>-->
+<!--        </label>-->
+
+<!--        <label class="container">-->
+<!--            <input type="checkbox" name="output_Type" value="2" onclick="return outputType_checkedBox()"> Text-->
+<!--            <div class="checkmark"></div>-->
+<!--        </label>-->
+
+<!--        <label class="container">-->
+<!--            <input type="checkbox" name="output_Type" value="3" onclick="return outputType_checkedBox()"> Lowercase Text-->
+<!--            <div class="checkmark"></div>-->
+<!--        </label>-->
+<!--            </h3>-->
+
+<!--        <div>-->
+<!--            <div id="step4_invalid" style="color: tomato"></div>-->
+<!--        </div>-->
+<!--    </div >-->
+
     <div class="step5">
-    <h2>Step 5: Display Options</h2>
-<!--        <p>Words Search Output Puzzle Output Type</p>-->
-        <h3>
-        <label class="container">
-            <input type="checkbox" name="output_Type" value="1" onclick="return outputType_checkedBox()"> HTML
-            <div class="checkmark"></div>
-        </label>
-
-        <label class="container">
-            <input type="checkbox" name="output_Type" value="2" onclick="return outputType_checkedBox()"> Text
-            <div class="checkmark"></div>
-        </label>
-
-        <label class="container">
-            <input type="checkbox" name="output_Type" value="3" onclick="return outputType_checkedBox()"> Lowercase Text
-            <div class="checkmark"></div>
-        </label>
-            </h3>
-
-        <div>
-            <div id="step4_invalid" style="color: tomato"></div>
-        </div>
-    </div >
-
-    <div class="step6">
-    <h2>Step 6: Check</h2>
+    <h2>Step 5: Check</h2>
 <!--        <p>Check Your Puzzle</p>-->
         <h3>
         <input name="submit" type="submit" value="Check My Puzzle!" class="button"/></h3>
@@ -98,22 +104,25 @@ function checked_Box(option) {
 }
 
 function parseType_checkBox(b){
+    // dynamic switch to new input
     const x = document.getElementsByName('parse_Option');
     let i;
     for (i = 0; i < x.length; i++) {
         if (x[i].value != b) x[i].checked = false;
     }
-    // let newlet = 0;
-    // let count;
-    // for (count =0; count<a.length; count++){
-    //     if (a[count].checked == true) {
-    //         newlet = newlet + 1;
-    //     }
-    // }
-    // if (newlet >=2) {
-    //     document.getElementById('step3_invalid').innerHTML= "** Please select only one option";
-    //     return false;
-    // }
+}
+
+function Suggest_Size (words) {
+    let string =words.toString().replace(/[^a-zA-Z ]/g, " ")
+      .split(/(\s+)/).filter( function(e) { return e.trim().length > 0; }); // deal with special characters inside
+    let row = string.length;
+    let longest_string = sort_Descending(string)[0];
+    let col = longest_string.length;
+    document.getElementById('Suggested_size').innerHTML = "Suggested size of row is " + row + " col is " + col;
+}
+
+function sort_Descending (string) {
+    return Object.values(string).sort((x, y) => y.length - x.length);
 }
 
 function outputType_checkedBox() {

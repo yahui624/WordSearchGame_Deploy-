@@ -8,7 +8,7 @@ let index = require('../controllers/index');
 router.get('/', index.enter_input);
 router.post('/', index.post_request);
 //get users
-router.post ('/users', index.direct_result);
+router.post ('/output', index.direct_result);
 
 
 module.exports = router;

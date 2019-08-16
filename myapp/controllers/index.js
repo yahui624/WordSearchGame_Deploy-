@@ -39,10 +39,9 @@ exports.direct_result  =function (req, res) {
     result += "</tr><tr>";
   }
   result += "</tr><table>";
-  // console.log(result);
 
   puzzle.finalize_Puzzle();
 
-  res.render('users', {title: puzzle.title, body: result, row: puzzle.size.row, col: puzzle.size.col, answer: answer});
+  res.render('output', {title: puzzle.title, body: result, row: puzzle.size.row, col: puzzle.size.col, answer: answer});
 
 };

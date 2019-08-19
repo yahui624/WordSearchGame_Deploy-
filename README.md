@@ -1,5 +1,6 @@
 # WordSearchGame_Deploy-
 Low-level design for Word-Search Game  
+
 I. Introduction 
 	This document gives the low-level design document for the “Word-search” project. The requirement is users should be able to get the low-level design for the application. 
 II. Audience 

@@ -124,7 +124,7 @@ module.exports = class WordSearch extends Puzzle {
         let attempts = 0;
         let direction = this.orientation[Math.floor(Math.random() * this.orientation.length)]  //generate a random dir
         while (!available) {// if not available to store all chars, keep trying
-            if (attempts >= 200)
+            if (attempts >= this.size.col * this.size.row)
                 direction = this.orientation[Math.floor(Math.random() * this.orientation.length)]  //generate a random dir
 
             // This function stores chars to grid, return true for successfully store-in; otherwise return false
@@ -196,7 +196,6 @@ module.exports = class WordSearch extends Puzzle {
                 new_spot = original_Point.randomize(original_Point, up_right);
                 console.log(new_spot, word.length, direction);
                 available = this.one_word_Available(direction, word, new_spot);
-
             }
             attempts++;
         }
@@ -211,29 +210,24 @@ module.exports = class WordSearch extends Puzzle {
         console.log(word);
         for (let i = 0; i < word.length; i++) {
             if (direction === 'horizontal') {
-                if (this.cells[num_row][num_col + i] != null) {
+                if (this.cells[num_row][num_col + i] != null)
                     return false;
-                }
             }
             else if (direction === 'horizontalBack') {
-                if (this.cells[num_row][num_col - i] != null) {
+                if (this.cells[num_row][num_col - i] != null)
                     return false;
-                }
             }
             else if (direction === 'vertical') {
-                if (this.cells[num_row + i][num_col] != null) {
+                if (this.cells[num_row + i][num_col] != null)
                     return false;
-                }
             }
             else if (direction === 'verticalUp') {
-                if (this.cells[num_row - i][num_col] != null) {
+                if (this.cells[num_row - i][num_col] != null)
                     return false;
-                }
             }
             else if (direction === 'diagonal') {
-                if (this.cells[num_row + i][num_col + i] != null) {
+                if (this.cells[num_row + i][num_col + i] != null)
                     return false;
-                }
             }
             else if (direction === 'diagonalUp') {
                 if (this.cells[num_row - i][num_col - i] != null)
@@ -272,7 +266,6 @@ module.exports = class WordSearch extends Puzzle {
             else if (direction === 'diagonalBack_Up')
                 this.cells[num_row - i][num_col + i] = word[i];
         }
-        // console.log("I store the words ")
     }
 
 
@@ -286,58 +279,50 @@ module.exports = class WordSearch extends Puzzle {
          for (let i = 0; i < word.length; i++) {
              // console.log(word[i], direction);
              // console.log(this.cells[num_row][num_col]);
-           if (direction === 'horizontal') {
-                if (this.cells[num_row][num_col + i] != null && this.cells[num_row][num_col + i] !== word[i] ) {
-                    // console.log(this.cells[num_row][num_col + i], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'horizontalBack') {
-                if (this.cells[num_row][num_col - i] != null && this.cells[num_row][num_col - i] !== word[i]) {
-                    // console.log(this.cells[num_row][num_col - i], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'vertical') {
-                if (this.cells[num_row + i][num_col] != null && this.cells[num_row + i][num_col] !== word[i]) {
-                    // console.log(this.cells[num_row + i][num_col], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'verticalUp') {
-                if (this.cells[num_row - i][num_col] != null && this.cells[num_row - i][num_col] !== word[i]) {
-                    // console.log(this.cells[num_row - i][num_col], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'diagonal') {
-                if (this.cells[num_row + i][num_col + i] != null && this.cells[num_row + i][num_col + i] !== word[i] ) {
-                    // console.log(this.cells[num_row + i][num_col + i], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'diagonalUp') {
-                if (this.cells[num_row - i][num_col - i] != null && this.cells[num_row - i][num_col - i] !== word[i]) {
-                    // console.log(this.cells[num_row - i][num_col - i], "I dont know why I am here");
-                    return false;
-                }
-            }
-            else if (direction === 'diagonalBack') {
-                if (this.cells[num_row + i][num_col - i] != null && this.cells[num_row + i][num_col - i] !== word[i]) {
-                    // console.log(this.cells[num_row + i][num_col - i], "I dont know why I am here");
-                    return false;
-                }
-
-            }
-            else if (direction === 'diagonalBack_Up') {
-                if (this.cells[num_row - i][num_col + i] != null && this.cells[num_row - i][num_col + i] !== word[i]) {
-                    // console.log(this.cells[num_row - i][num_col + i], "I dont know why I am here");
+             if (direction === 'horizontal') {
+                 if (this.cells[num_row][num_col + i] != null && this.cells[num_row][num_col + i] !== word[i]) {
+                     // console.log(this.cells[num_row][num_col + i], "I dont know why I am here");
                      return false;
-                }
-            }
-        }
-        return true;
+                 }
+             } else if (direction === 'horizontalBack') {
+                 if (this.cells[num_row][num_col - i] != null && this.cells[num_row][num_col - i] !== word[i]) {
+                     // console.log(this.cells[num_row][num_col - i], "I dont know why I am here");
+                     return false;
+                 }
+             } else if (direction === 'vertical') {
+                 if (this.cells[num_row + i][num_col] != null && this.cells[num_row + i][num_col] !== word[i]) {
+                     // console.log(this.cells[num_row + i][num_col], "I dont know why I am here");
+                     return false;
+                 }
+             } else if (direction === 'verticalUp') {
+                 if (this.cells[num_row - i][num_col] != null && this.cells[num_row - i][num_col] !== word[i]) {
+                     // console.log(this.cells[num_row - i][num_col], "I dont know why I am here");
+                     return false;
+                 }
+             } else if (direction === 'diagonal') {
+                 if (this.cells[num_row + i][num_col + i] != null && this.cells[num_row + i][num_col + i] !== word[i]) {
+                     // console.log(this.cells[num_row + i][num_col + i], "I dont know why I am here");
+                     return false;
+                 }
+             } else if (direction === 'diagonalUp') {
+                 if (this.cells[num_row - i][num_col - i] != null && this.cells[num_row - i][num_col - i] !== word[i]) {
+                     // console.log(this.cells[num_row - i][num_col - i], "I dont know why I am here");
+                     return false;
+                 }
+             } else if (direction === 'diagonalBack') {
+                 if (this.cells[num_row + i][num_col - i] != null && this.cells[num_row + i][num_col - i] !== word[i]) {
+                     // console.log(this.cells[num_row + i][num_col - i], "I dont know why I am here");
+                     return false;
+                 }
 
+             } else if (direction === 'diagonalBack_Up') {
+                 if (this.cells[num_row - i][num_col + i] != null && this.cells[num_row - i][num_col + i] !== word[i]) {
+                     // console.log(this.cells[num_row - i][num_col + i], "I dont know why I am here");
+                     return false;
+                 }
+             }
+         }
+        return true;
     }
 
     store_Chars (direction, word, new_spot) {
